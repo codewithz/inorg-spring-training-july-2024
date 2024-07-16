@@ -17,14 +17,14 @@ public class LoggingFilter implements Filter {
             System.out.println("----------Logging Filter----------");
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
-            request.getHeaderNames().asIterator()
-                    .forEachRemaining(headerName ->
-                            System.out.println(headerName + ": " + request.getHeader(headerName)));
-
-            String codewithz=request.getHeader("codewithz");
-            if(codewithz!=null && codewithz.equals("reject")){
-                response.sendError(403,"Forbidden");
-            }
+//            request.getHeaderNames().asIterator()
+//                    .forEachRemaining(headerName ->
+//                            System.out.println(headerName + ": " + request.getHeader(headerName)));
+//
+//            String codewithz=request.getHeader("codewithz");
+//            if(codewithz!=null && codewithz.equals("reject")){
+//                response.sendError(403,"Forbidden");
+//            }
 
             filterChain.doFilter(servletRequest, servletResponse);
     }
