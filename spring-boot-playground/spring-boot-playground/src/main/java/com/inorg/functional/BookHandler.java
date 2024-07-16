@@ -19,6 +19,7 @@ public class BookHandler {
 
     public ServerResponse getBookByName(ServerRequest request){
         String name=request.pathVariable("name");
+
         return ServerResponse.ok().body(
                 Stream.of(
                         new Book("Harry Potter","J.K.Rowling"),
