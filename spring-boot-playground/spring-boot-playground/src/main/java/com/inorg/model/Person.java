@@ -3,26 +3,43 @@ package com.inorg.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+//import com.inorg.validation.Foo;
+import com.inorg.validation.InOrgEmail;
+import jakarta.validation.constraints.*;
 
 @JsonIgnoreProperties(value = {"password"},allowSetters = true,allowGetters = false)
 public class Person {
 
-    @JsonProperty("aadhar_number")
+
     private int id;
-    private String firstName;
-    private String lastName;
-    private int age;
+    @NotEmpty private String firstName;
+   @NotEmpty
+   private String lastName;
+    @Min(16) @Max(100) private int age;
+    @NotNull private Gender gender;
+//    @Email private String email;
+//
+    @InOrgEmail
     private String email;
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     private String password;
 
     public Person() {
     }
 
-    public Person(int id, String firstName,String lastName ,int age, String email, String password) {
+    public Person(int id, String firstName, String lastName, int age, Gender gender, String email, String password) {
         this.id = id;
         this.firstName = firstName;
-        this.age = age;
         this.lastName = lastName;
+        this.age = age;
+        this.gender = gender;
         this.email = email;
         this.password = password;
     }
@@ -83,8 +100,9 @@ public class Person {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
+                ", gender=" + gender +
                 ", email='" + email + '\'' +
-                ", password='" + getPassword() + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
