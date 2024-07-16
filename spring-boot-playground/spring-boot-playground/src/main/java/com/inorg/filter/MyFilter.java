@@ -2,6 +2,7 @@ package com.inorg.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +17,8 @@ public class MyFilter implements Filter {
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
         System.out.println("----------My Filter Filter Starts----------");
-//        HttpServletRequest request = (HttpServletRequest) servletRequest;
-//        request.getHeaderNames().asIterator()
-//                .forEachRemaining(headerName ->
-//                        System.out.println(headerName + ": " + request.getHeader(headerName)));
+       HttpServletResponse response = (HttpServletResponse) servletResponse;
+//          response.sendError(404,"Not Found");
         System.out.println("\n\n---------My Filter Filter Ends----------");
         filterChain.doFilter(servletRequest, servletResponse);
     }
