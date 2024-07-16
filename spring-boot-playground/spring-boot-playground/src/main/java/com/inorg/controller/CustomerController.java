@@ -2,7 +2,10 @@ package com.inorg.controller;
 
 import com.inorg.model.Customer;
 import com.inorg.service.CustomerService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,14 +35,14 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{id}")
-    public Customer getCustomerById(@PathVariable(name = "id") int id) {
+    public ResponseEntity<Customer> getCustomerById(@PathVariable(name = "id") int id) {
         Customer customer=customerService.getCustomerById(id);
-        return customer;
+        return ResponseEntity.ok().body(customer);
     }
     @PostMapping("/customers")
-    public String addCustomer(@RequestBody  Customer customer) {
+    public ResponseEntity<String> addCustomer(@RequestBody  Customer customer) {
         String result=customerService.addCustomer(customer);
-        return result;
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
     @PutMapping("/customers/{id}")
     public String updateCustomer(@RequestBody  Customer customer,@PathVariable(name = "id") int id) {
