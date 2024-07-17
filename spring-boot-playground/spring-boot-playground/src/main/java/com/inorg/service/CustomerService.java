@@ -3,7 +3,9 @@ package com.inorg.service;
 import com.inorg.model.Customer;
 import com.inorg.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,13 +32,20 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(int id) {
-
+        if(id<=3){
         Customer customer=null;
         Optional<Customer> optionalCustomer=customerRepository.findById(id);
         if(optionalCustomer.isPresent()){
            customer=optionalCustomer.get();
         }
         return customer;
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Customer not found");
+        }
+
+
 
     }
 
