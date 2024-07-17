@@ -5,6 +5,8 @@ public class Hello {
     private  String name;
     private  String city;
 
+
+
     public Hello() {
     }
     public Hello(String name, String city) {
