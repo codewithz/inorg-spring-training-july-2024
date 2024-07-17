@@ -18,9 +18,10 @@ public class ApiExceptionHandler {
             ResponseStatusException exception, WebRequest webRequest){
 
         String path=webRequest.getDescription(true);
+
 //        1. Create the payload
         ApiExceptionPayload payload=new ApiExceptionPayload(
-                exception.getMessage(),
+                ApiExceptionPayload.formatMessage(exception.getMessage()),
                 exception.getStatusCode().value(),
                 String.valueOf(exception.getStatusCode()),
                 false,
@@ -28,6 +29,7 @@ public class ApiExceptionHandler {
                 LocalDateTime.now(),
                 path
         );
+
 //        2. Return the ResponseEntity
 
         ResponseEntity<ApiExceptionPayload> response=new ResponseEntity<>(payload,exception.getStatusCode());

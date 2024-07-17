@@ -1,8 +1,10 @@
 package com.inorg.payload;
 
+import org.springframework.http.HttpStatus;
+
 import java.time.LocalDateTime;
 
-public class ApiExceptionPayload {
+public class ApiSuccessPayload {
 
     String message;
     int statusCode;
@@ -10,15 +12,7 @@ public class ApiExceptionPayload {
     boolean success;
     boolean exception;
     LocalDateTime timestamp;
-    String path;
-
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
+    Object body;
 
     public String getMessage() {
         return message;
@@ -26,6 +20,14 @@ public class ApiExceptionPayload {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
     public String getHttpStatus() {
@@ -60,28 +62,41 @@ public class ApiExceptionPayload {
         this.timestamp = timestamp;
     }
 
-    public String getPath() {
-        return path;
+    public Object getBody() {
+        return body;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setBody(Object body) {
+        this.body = body;
     }
 
-    public ApiExceptionPayload(String message, int statusCode, String httpStatus, boolean success, boolean exception, LocalDateTime timestamp, String path) {
+    public ApiSuccessPayload(String message, int statusCode, String httpStatus, boolean success, boolean exception, LocalDateTime timestamp, Object body) {
         this.message = message;
         this.statusCode = statusCode;
         this.httpStatus = httpStatus;
         this.success = success;
         this.exception = exception;
         this.timestamp = timestamp;
-        this.path = path;
+        this.body = body;
     }
 
-    public static String formatMessage(String message){
-        int indexOfDoubleQuotes=message.indexOf("\"");
-        message=message.substring(indexOfDoubleQuotes+1);
-        message=message.replace("\"","");
-        return message;
+    public ApiSuccessPayload() {
     }
+
+    public static ApiSuccessPayload build(Object body, HttpStatus status, String message){
+        ApiSuccessPayload payload=new ApiSuccessPayload();
+        payload.setMessage(message);
+        payload.setBody(body);
+        payload.setHttpStatus(status.name());
+        payload.setStatusCode(status.value());
+        payload.setTimestamp(LocalDateTime.now());
+        payload.setSuccess(true);
+        payload.setException(false);
+
+        return payload;
+    }
+
+
+
+
 }

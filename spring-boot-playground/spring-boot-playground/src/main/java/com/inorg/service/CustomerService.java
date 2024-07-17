@@ -32,18 +32,18 @@ public class CustomerService {
     }
 
     public Customer getCustomerById(int id) {
-        if(id<=3){
+
         Customer customer=null;
         Optional<Customer> optionalCustomer=customerRepository.findById(id);
         if(optionalCustomer.isPresent()){
            customer=optionalCustomer.get();
-        }
-        return customer;
+            return customer;
         }
         else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Customer not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Customer not found");
         }
+
+
 
 
 
