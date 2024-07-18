@@ -31,14 +31,16 @@ public class SpringBootPlaygroundApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
 		return args -> {
-				generateRandomStudents(studentRepository);
-				sorting(studentRepository);
-
-			PageRequest pageRequest=PageRequest.of(4, 50);
-			Page<Student> page = studentRepository.findAll(pageRequest);
-			System.out.println(page);
-			page.forEach(System.out::println);
+//				generateRandomStudents(studentRepository);
+//				sorting(studentRepository);
+//
+//			PageRequest pageRequest=PageRequest.of(4, 50);
+//			Page<Student> page = studentRepository.findAll(pageRequest);
+//			System.out.println(page);
+//			page.forEach(System.out::println);
 //			studentRepository.findAll(pageRequest).forEach(System.out::println);
+
+
 		};
 	}
 
