@@ -6,14 +6,12 @@ import jakarta.persistence.*;
 @Table(name="student_id_card")
 public class StudentIdCard {
     @Id
-//    For generating the sequence for the table
     @SequenceGenerator(
             name = "student_id_card_sequence",
             sequenceName = "student_id_card_sequence",
             allocationSize = 1,
             initialValue = 1
     )
-//    For getting the generated value
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "student_id_card_sequence"
