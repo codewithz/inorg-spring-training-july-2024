@@ -2,6 +2,9 @@ package com.inorg.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name = "Student")
 @Table(name = "student",
         uniqueConstraints = {
@@ -57,9 +60,18 @@ public class Student {
     @OneToOne(
             mappedBy = "student",
             cascade = {CascadeType.PERSIST},
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     StudentIdCard studentIdCard;
+
+    @OneToMany(
+            mappedBy = "student",
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+
+    )
+    List<Book> books=new ArrayList<>();
 
     public Student() {
     }
@@ -118,6 +130,24 @@ public class Student {
 
     public void setStudentIdCard(StudentIdCard studentIdCard) {
         this.studentIdCard = studentIdCard;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void addBook(Book book) {
+        if(!books.contains(book)) {
+            books.add(book);
+            book.setStudent(this);
+        }
+    }
+
+    public void removeBook(Book book) {
+        if(books.contains(book)) {
+            books.remove(book);
+            book.setStudent(null);
+        }
     }
 
     @Override
