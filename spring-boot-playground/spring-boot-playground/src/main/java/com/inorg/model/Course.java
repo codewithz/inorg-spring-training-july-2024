@@ -38,11 +38,17 @@ public class Course {
     )
     String department;
 
-    @ManyToMany(
-            mappedBy = "courses"
-    )
-    List<Student> students = new ArrayList<>();
+//    @ManyToMany(
+//            mappedBy = "courses"
+//    )
+//    List<Student> students = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "course",
+            cascade = CascadeType.ALL
+    )
+
+    List<Enrollment> enrollments=new ArrayList<>();
     public Long getId() {
         return id;
     }
@@ -67,8 +73,26 @@ public class Course {
         this.department = department;
     }
 
-    public List<Student> getStudents() {
-        return students;
+//    public List<Student> getStudents() {
+//        return students;
+//    }
+
+    public List<Enrollment> getEnrollments() {
+        return enrollments;
+    }
+
+    public void addEnrollment(Enrollment enrollment) {
+        if(!enrollments.contains(enrollment)) {
+            enrollments.add(enrollment);
+            enrollment.setCourse(this);
+        }
+    }
+
+    public void removeEnrollment(Enrollment enrollment) {
+        if(enrollments.contains(enrollment)) {
+            enrollments.remove(enrollment);
+            enrollment.setCourse(null);
+        }
     }
 
     public Course() {
