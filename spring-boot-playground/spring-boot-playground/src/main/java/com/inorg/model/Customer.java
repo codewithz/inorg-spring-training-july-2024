@@ -9,7 +9,7 @@ import java.time.LocalDate;
 //Represents the DB Table
 @Table(name = "customer")
 public class Customer {
-//    Represents the Primay Key
+//    Represents the Primayy Key
     @Id
 //    For generating the sequence for the table
     @SequenceGenerator(
