@@ -9,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
@@ -31,6 +33,12 @@ public class SpringBootPlaygroundApplication {
 		return args -> {
 				generateRandomStudents(studentRepository);
 				sorting(studentRepository);
+
+			PageRequest pageRequest=PageRequest.of(4, 50);
+			Page<Student> page = studentRepository.findAll(pageRequest);
+			System.out.println(page);
+			page.forEach(System.out::println);
+//			studentRepository.findAll(pageRequest).forEach(System.out::println);
 		};
 	}
 
@@ -38,7 +46,7 @@ public class SpringBootPlaygroundApplication {
 
 		Faker faker = new Faker();
 
-		for(int index=1;index<=50;index++){
+		for(int index=1;index<=500;index++){
 
 			String firstName = faker.name().firstName();
 			String lastName = faker.name().lastName();
