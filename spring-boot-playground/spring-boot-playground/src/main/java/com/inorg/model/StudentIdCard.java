@@ -31,7 +31,7 @@ public class StudentIdCard {
     )
     String cardNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(
             name="student_id", //This is current table Foreign Key col name
             referencedColumnName = "id" // This is Parent Table col name

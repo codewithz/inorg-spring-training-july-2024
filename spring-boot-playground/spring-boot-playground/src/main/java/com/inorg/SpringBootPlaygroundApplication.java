@@ -3,7 +3,9 @@ package com.inorg;
 import com.github.javafaker.Faker;
 import com.inorg.model.Customer;
 import com.inorg.model.Student;
+import com.inorg.model.StudentIdCard;
 import com.inorg.repository.CustomerRepository;
+import com.inorg.repository.StudentIdCardRepository;
 import com.inorg.repository.StudentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,19 +31,28 @@ public class SpringBootPlaygroundApplication {
 	}
 
 	@Bean
-	CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
+	CommandLineRunner commandLineRunner(StudentRepository studentRepository,
+										StudentIdCardRepository studentIdCardRepository) {
 		return args -> {
-//				generateRandomStudents(studentRepository);
-//				sorting(studentRepository);
-//
-//			PageRequest pageRequest=PageRequest.of(4, 50);
-//			Page<Student> page = studentRepository.findAll(pageRequest);
-//			System.out.println(page);
-//			page.forEach(System.out::println);
-//			studentRepository.findAll(pageRequest).forEach(System.out::println);
+
+			Student student=getOneRandomStudent();
+
+			StudentIdCard studentIdCard=new StudentIdCard("123456789",student);
+			studentIdCardRepository.save(studentIdCard);
+			studentIdCardRepository.delete(studentIdCard);
 
 
 		};
+	}
+
+	private Student getOneRandomStudent(){
+			Faker faker = new Faker();
+			String firstName = faker.name().firstName();
+			String lastName = faker.name().lastName();
+			String email=String.format("%s@gmail.com",firstName+"."+lastName);
+			int age=faker.number().numberBetween(18,25);
+			Student student=new Student(firstName,lastName,email,age);
+			return student;
 	}
 
 	private void generateRandomStudents(StudentRepository studentRepository) {

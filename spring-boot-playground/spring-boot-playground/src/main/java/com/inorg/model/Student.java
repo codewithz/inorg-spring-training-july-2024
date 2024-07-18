@@ -54,6 +54,12 @@ public class Student {
     )
     private Integer age;
 
+    @OneToOne(
+            mappedBy = "student",
+            cascade = {CascadeType.PERSIST,CascadeType.REMOVE}
+    )
+    StudentIdCard studentIdCard;
+
     public Student() {
     }
 
@@ -103,6 +109,14 @@ public class Student {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public StudentIdCard getStudentIdCard() {
+        return studentIdCard;
+    }
+
+    public void setStudentIdCard(StudentIdCard studentIdCard) {
+        this.studentIdCard = studentIdCard;
     }
 
     @Override
