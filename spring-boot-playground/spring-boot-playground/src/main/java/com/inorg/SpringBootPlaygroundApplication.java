@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,6 +30,7 @@ public class SpringBootPlaygroundApplication {
 	CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
 		return args -> {
 				generateRandomStudents(studentRepository);
+				sorting(studentRepository);
 		};
 	}
 
@@ -46,6 +48,12 @@ public class SpringBootPlaygroundApplication {
 			studentRepository.save(student);
 		}
 
+	}
+
+	private void sorting(StudentRepository studentRepository) {
+		Sort sort=Sort.by("firstName").ascending().and(Sort.by("age").descending());
+		List<Student> students=studentRepository.findAll(sort);
+		students.forEach(student-> System.out.println(student.getFirstName()+"--"+student.getAge()));
 	}
 
 }
