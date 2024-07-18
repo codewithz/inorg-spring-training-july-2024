@@ -38,9 +38,20 @@ public class SpringBootPlaygroundApplication {
 			Student student=getOneRandomStudent();
 
 			StudentIdCard studentIdCard=new StudentIdCard("123456789",student);
-			studentIdCardRepository.save(studentIdCard);
-			studentIdCardRepository.delete(studentIdCard);
 
+			student.setStudentIdCard(studentIdCard);
+			studentRepository.save(student);
+
+
+			System.out.println("--------- Fetch Student with Student ID Card------------");
+
+			studentRepository.findById(1L)
+					.ifPresent(s->{
+						System.out.println(s);
+						System.out.println(s.getStudentIdCard());
+					});
+			System.out.println("----------- Delete Student--------");
+			studentRepository.deleteById(1L);
 
 		};
 	}

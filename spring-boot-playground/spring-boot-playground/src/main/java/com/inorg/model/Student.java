@@ -56,7 +56,8 @@ public class Student {
 
     @OneToOne(
             mappedBy = "student",
-            cascade = {CascadeType.PERSIST,CascadeType.REMOVE}
+            cascade = {CascadeType.PERSIST},
+            orphanRemoval = true
     )
     StudentIdCard studentIdCard;
 
