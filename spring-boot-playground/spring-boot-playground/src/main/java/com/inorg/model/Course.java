@@ -2,6 +2,9 @@ package com.inorg.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(name="Course")
 @Table(name="course")
 public class Course {
@@ -34,6 +37,11 @@ public class Course {
             columnDefinition = "TEXT"
     )
     String department;
+
+    @ManyToMany(
+            mappedBy = "courses"
+    )
+    List<Student> students = new ArrayList<>();
 
     public Long getId() {
         return id;
