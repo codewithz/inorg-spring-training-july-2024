@@ -40,8 +40,12 @@ public class SpringBootPlaygroundApplication {
 			Optional<Course> optional1=courseRepository.findById(1L);
 			Course c1=optional1.isPresent()?optional1.get():null;
 
+
 			Optional<Course> optional2=courseRepository.findById(9L);
 			Course c2=optional2.isPresent()?optional2.get():null;
+
+
+
 			Student student=getOneRandomStudent();
 
 			StudentIdCard studentIdCard=new StudentIdCard("12345",student);
@@ -56,8 +60,21 @@ public class SpringBootPlaygroundApplication {
 			student.addBook(book2);
 			student.addBook(book3);
 
-			student.enrollToCourse(c1);
-			student.enrollToCourse(c2);
+//			student.enrollToCourse(c1);
+//			student.enrollToCourse(c2);
+
+
+            Enrollment enrollmentOne=new Enrollment(
+					new EnrollmentId(1L, 1L),
+					student,new Course("Computer Science", "IT"),LocalDateTime.now()
+			);
+			Enrollment enrollmentTwo=new Enrollment(
+					new EnrollmentId(1L, 2L),
+					student,new Course("Computer Science1", "IT"),LocalDateTime.now()
+			);
+
+			student.addEnrollment(enrollmentOne);
+			student.addEnrollment(enrollmentTwo);
 
 			studentRepository.save(student);
 

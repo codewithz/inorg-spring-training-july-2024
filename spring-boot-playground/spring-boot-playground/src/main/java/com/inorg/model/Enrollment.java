@@ -14,16 +14,20 @@ public class Enrollment {
     @ManyToOne
     @MapsId("studentId")
     @JoinColumn(
-            name="student_id",
-            foreignKey = @ForeignKey(name = "enrollment_student_fk")
+            name = "student_id",
+            foreignKey = @ForeignKey(
+                    name = "enrolment_student_id_fk"
+            )
     )
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @MapsId("courseId")
     @JoinColumn(
             name = "course_id",
-            foreignKey = @ForeignKey(name = "enrollment_course_fk")
+            foreignKey = @ForeignKey(
+                    name = "enrolment_course_id_fk"
+            )
     )
     private Course course;
 

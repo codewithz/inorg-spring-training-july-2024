@@ -44,8 +44,8 @@ public class Course {
 //    List<Student> students = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "course",
-            cascade = CascadeType.ALL
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            mappedBy = "course"
     )
 
     List<Enrollment> enrollments=new ArrayList<>();

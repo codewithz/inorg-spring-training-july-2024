@@ -88,12 +88,12 @@ public class Student {
 //            )
 //    )
 //    List<Course> courses=new ArrayList<>();
-    @OneToMany(
-            mappedBy = "student",
-            cascade = CascadeType.MERGE
+@OneToMany(
+        cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+        mappedBy = "student"
+)
+private List<Enrollment> enrollments = new ArrayList<>();
 
-    )
-    List<Enrollment> enrollments=new ArrayList<>();
 
     public Student() {
     }
